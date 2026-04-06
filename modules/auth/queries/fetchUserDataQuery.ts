@@ -1,10 +1,10 @@
 ﻿import {User} from "../types"
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from 'expo-secure-store';
 
 export const fetchUserDataQuery = async ():Promise<User> => {
     try {
-        const token = AsyncStorage.getItem("token")
-        const tokenType = AsyncStorage.getItem("jwt_type")
+        const token = SecureStore.getItemAsync("token")
+        const tokenType = SecureStore.getItemAsync("jwt_type")
         if (!token || !tokenType) {
             throw new Error("Brak tokenu.");
         }

@@ -3,7 +3,7 @@
 
 export const registerMutation = async (data:RegisterFormValues): Promise<RegisterResponse> => {
     try {
-        const registerResponse = await fetch("https://localhost:8080/register", {
+        const registerResponse = await fetch("https://api.fundacjaperyskop.org/docs#/users/create_user_api_v1_users__post", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

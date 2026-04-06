@@ -1,5 +1,4 @@
-﻿import AsyncStorage from '@react-native-async-storage/async-storage'
-import {LoginAccessTokenResponse, LoginFormValues} from "@/modules/auth/types";
+﻿import {LoginAccessTokenResponse, LoginFormValues} from "@/modules/auth/types";
 
 
 export const loginMutation = async (data: LoginFormValues): Promise<LoginAccessTokenResponse> => {
@@ -18,12 +17,7 @@ export const loginMutation = async (data: LoginFormValues): Promise<LoginAccessT
         if (!loginResponse.ok) {
             throw Error;
         }
-        const tokenData = await loginResponse.json()
-
-        await AsyncStorage.setItem("token", tokenData.access_token)
-        await AsyncStorage.setItem("jwt_type", tokenData.token_type)
-
-        return tokenData
+        return await loginResponse.json()
     }catch (err){
         throw err
     }
