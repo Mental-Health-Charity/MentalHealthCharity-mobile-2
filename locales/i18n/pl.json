@@ -18,6 +18,38 @@
       "redactor": "Redaktor",
       "volunteer_supervisor": "Koordynator"
     },
+    "welcome_screen": {
+      "start": "Zaczynamy!",
+      "header": "Darmowa pomoc psychologiczna",
+      "description": "Skorzystaj z darmowej pomocy wolontariusza, lub zostań wolontariuszem i rusz z nami w misję!"
+
+    },
+    "login_screen": {
+      "header": "Witaj ponownie!",
+      "description": "Zaloguj się na swoje konto",
+      "email": "Adres email",
+      "password": "Hasło",
+      "forgot_password": "Nie pamiętam hasła",
+      "no_account": "Nie masz konta?",
+      "register": "Zarejestruj się",
+      "login": "Zaloguj",
+      "return": "Powrót"
+    },
+    "register_screen": {
+      "header": "Utwórz nowe konto!",
+      "description": "Super że do nas dołączasz",
+      "username": "Nazwa użytkownika",
+      "email": "Adres email",
+      "password": "Hasło",
+      "confirm_password": "Powtórz hasło",
+      "have_account": "Masz już konto?",
+      "register": "Zarejsetruj się",
+      "login": "Zaloguj się",
+      "return": "Powrót",
+      "policy": "Zapoznałem się z regulaminem"
+
+    },
+
     "submit": "Wyślij",
     "join_us": "Zaloguj się",
     "sign_up": "Zarejestruj się",
