@@ -1,13 +1,10 @@
-﻿import React, { createContext, useEffect, useState, useContext } from 'react';
+﻿import React, {createContext, useContext, useEffect, useState} from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { registerMutation } from '@/modules/auth/queries/registerMutation';
-import { loginMutation } from '@/modules/auth/queries/tokenMutation';
-import {
-    LoginAccessTokenResponse,
-    LoginFormValues,
-    RegisterFormValues,
-    RegisterResponse,
-} from '@/modules/auth/types';
+import {registerMutation} from '@/modules/auth/queries/registerMutation';
+import {loginMutation} from '@/modules/auth/queries/tokenMutation';
+import {LoginAccessTokenResponse, LoginFormValues, RegisterFormValues, RegisterResponse,} from '@/modules/auth/types';
+import {resetPasswordSendEmailMutation} from "@/modules/auth/queries/resetPasswordSendEmailMutation";
+
 
 type AuthContextType = {
     token: string | null;
@@ -15,6 +12,7 @@ type AuthContextType = {
     isLoading: boolean;
     login: (data: LoginFormValues) => Promise<LoginAccessTokenResponse>;
     register: (data: RegisterFormValues) => Promise<RegisterResponse>;
+    resetPasswordSendEmail: any;
     logout: () => Promise<void>;
 };
 
@@ -48,8 +46,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const register = async (data: RegisterFormValues) => {
-        const res = await registerMutation(data);
-        return res;
+        try {
+            return await registerMutation(data);
+        }catch (error) {
+            console.error(error);
+            throw error;
+        }
     };
 
     const logout = async () => {
@@ -63,8 +65,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
+    const resetPasswordSendEmail = async (email: string ) => {
+        try{
+            return await resetPasswordSendEmailMutation(email)
+        }catch (error) {
+            throw error;
+        }
+    }
+
+
+
+
     return (
-        <AuthContext.Provider value={{ token, jwtType, login, register, logout, isLoading }}>
+        <AuthContext.Provider value={{ token, jwtType, login, register, logout, isLoading, resetPasswordSendEmail }}>
             {children}
         </AuthContext.Provider>
     );

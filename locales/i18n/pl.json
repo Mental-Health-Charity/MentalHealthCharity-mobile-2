@@ -1,5 +1,15 @@
 ﻿{
   "common": {
+    "main_screen": {
+      "hello": "Cześć, {{name}}!",
+      "subtitle": "Jak się dziś czujesz?",
+      "quick_actions": "Szybkie działania",
+      "breathing": "Oddychanie",
+      "journaling": "Dziennik",
+      "mood_tracker": "Nastrój",
+      "get_help": "Uzyskaj pomoc",
+      "daily_quote": "Cytat dnia"
+    },
     "navigation": {
       "home": "Strona główna",
       "about": "O nas",
@@ -47,6 +57,19 @@
       "login": "Zaloguj się",
       "return": "Powrót",
       "policy": "Zapoznałem się z regulaminem"
+
+    },
+    "reset_password_screen": {
+      "header": "Zapomniałeś hasła?",
+      "description": "Zresetuj swoje hasło, wpisz adres na który wyślemy wiadomość z linkiem",
+      "email": "Adres email",
+      "password": "Hasło",
+      "confirm_password": "Powtórz hasło",
+      "reset_password": "Zmień hasło",
+      "send_email": "Wyślij wiadomość",
+      "return": "Powrót",
+      "title": "Email wysłany",
+      "toast_description": "Sprawdź skrzynkę pocztową"
 
     },
 
@@ -109,6 +132,7 @@
     "min_one_uppercase": "Hasło musi zawierać co najmniej jedną wielką literę",
     "invalid_email": "Podaj poprawny adres email",
     "invalid_url": "Podaj poprawny adres URL",
+    "invalid_password": "Nieprawidłowe hasło",
     "incorrect_password_format": "Hasło musi zawierać co najmniej 8 znaków",
     "min_one_number": "Hasło musi zawierać co najmniej jedną cyfrę np. 1",
     "password_confirmation": "Hasła muszą być takie same",
@@ -139,6 +163,7 @@
     "message": "Wiadomość musi zawierać co najmniej 10 znaków"
   },
   "errors": {
+    "fail": "Błąd",
     "failed_to_fetch_chat_note": "Wystąpił problem podczas wczytywania notatek. Spróbuj ponownie później",
     "failed_to_create_report": "Wystąpił problem podczas tworzenia zgłoszenia.",
     "failed_to_save_note": "Wystąpił problem podczas zapisywania notatki. Spróbuj ponownie później",

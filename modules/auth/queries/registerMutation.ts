@@ -3,7 +3,7 @@
 
 export const registerMutation = async (data:RegisterFormValues): Promise<RegisterResponse> => {
     try {
-        const registerResponse = await fetch("https://api.fundacjaperyskop.org/docs#/users/create_user_api_v1_users__post", {
+        const registerResponse = await fetch("https://backend.fundacjaperyskop.org/api/v1/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -18,11 +18,13 @@ export const registerMutation = async (data:RegisterFormValues): Promise<Registe
         const newUser = await registerResponse.json();
 
         if (!registerResponse.ok) {
+            console.log(Error)
             throw new Error()
         }
 
         return newUser;
     }catch (err) {
+        console.error(err);
         throw err
     }
 }

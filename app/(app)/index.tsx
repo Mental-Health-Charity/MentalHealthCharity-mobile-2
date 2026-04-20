@@ -1,7 +1,7 @@
-﻿import {Text} from "react-native";
+﻿import MainScreen from "@/screens/MainScreen";
 
 export default function  AppIndexScreen (){
     return (
-        <Text>Home</Text>
+        <><MainScreen /></>
     )
 }

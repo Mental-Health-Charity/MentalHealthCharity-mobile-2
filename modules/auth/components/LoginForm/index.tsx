@@ -1,10 +1,11 @@
 ﻿import * as Yup  from "yup"
 import {Formik} from "formik"
 import { useTranslation } from "react-i18next";
-import {LoginFormValues} from "../../types"
+import {LoginFormValues,} from "../../types"
 import {Pressable, Text, TextInput, View} from "react-native";
 import {router} from "expo-router";
 import AuthScreenNavigation from "@/modules/auth/components/AuthScreenNavigation";
+import {useToast} from "@/modules/shared/components/Toast";
 
 
 interface LoginFormProps {
@@ -13,6 +14,7 @@ interface LoginFormProps {
 
 const LoginForm = ({onSubmit}: LoginFormProps) => {
     const { t } = useTranslation();
+    const {showToast} = useToast();
 
     const initialValues = {
         email: "",
@@ -22,17 +24,34 @@ const LoginForm = ({onSubmit}: LoginFormProps) => {
 
     const validationSchema = Yup.object({
         email: Yup.string().email(t("validation.invalid_email")).required(t("validation.required")),
-        password: Yup.string().min(8, t("validation.incorrect_password_format")).required(t("validation.required")),
+        password: Yup.string().min(8, t("validation.invalid_password")).required(t("validation.required")),
     });
 
-    return (
-        <View>
-            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={() => console.log("Good")}>
-                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                    <View className="flex flex-col gap-4">
+    const handleSubmit = async (values: LoginFormValues) => {
+        try {
+            onSubmit(values)
 
-                        <View className="gap-4">
-                            <View className="gap-1">
+
+        }catch (error) {
+            console.error(error);
+            showToast({
+                type: "error",
+                title: "Błąd",
+                description: t("errors.unknown"),
+                duration: 4000
+            });
+        }
+    }
+
+    return (
+        <View className="flex-1">
+            <Formik initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}>
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                    <View className="flex-1 flex-col justify-between">
+                        <View className="gap-4 ">
+                            <View className="gap-1  ">
                                 <TextInput
                                     className="rounded-2xl border border-[#C5C6CC] w-full p-4"
                                     value={values.email}
@@ -58,41 +77,50 @@ const LoginForm = ({onSubmit}: LoginFormProps) => {
                                     <Text className="text-red-500 text-sm">{errors.password}</Text>
                                 )}
                             </View>
-                        </View>
-
-                        <View className="flex flex-row justify-between items-center">
-                            <Pressable onPress={() => router.navigate("/reset-password")}>
-                                <Text className="border-b border-[#71727A] text-[#71727A] text-sm">
-                                    {t("common.login_screen.forgot_password")}
-                                </Text>
-                            </Pressable>
-
-                            <View className="flex-row items-center gap-1">
-                                <Text className="text-[#71727A] text-sm">
-                                    {t("common.login_screen.no_account")}
-                                </Text>
-                                <Pressable onPress={() => router.navigate("/sign-up")}>
-                                    <Text className="text-[#2BB5A0] font-semibold text-sm">
-                                        {t("common.login_screen.register")}
+                            <View className="flex flex-row justify-between items-center">
+                                <Pressable onPress={() => router.navigate("/reset-password")}>
+                                    <Text className="border-b border-[#71727A] text-[#71727A] text-sm">
+                                        {t("common.login_screen.forgot_password")}
                                     </Text>
                                 </Pressable>
+
+                                <View className="flex-row items-center gap-1">
+                                    <Text className="text-[#71727A] text-sm">
+                                        {t("common.login_screen.no_account")}
+                                    </Text>
+                                    <Pressable onPress={() => router.navigate("/sign-up")}>
+                                        <Text className="text-[#2BB5A0] font-semibold text-sm">
+                                            {t("common.login_screen.register")}
+                                        </Text>
+                                    </Pressable>
+                                </View>
                             </View>
                         </View>
 
-                        <AuthScreenNavigation
-                            primaryTitle={"common.login_screen.login"}
-                            primaryVariant={"primary"}
-                            onPrimaryPress={handleSubmit}
-                            secondaryTitle={"common.login_screen.return"}
-                            secondaryVariant={"secondary"}
-                            secondaryHref={() => router.navigate("/welcome-screen")}
-                        />
+
+                        <View className="bg-[#E6FFFA]">
+                            <AuthScreenNavigation
+                                primaryTitle={"common.login_screen.login"}
+                                primaryVariant={"primary"}
+                                onPrimaryPress={() => {
+                                    console.log("1")
+                                    handleSubmit()
+                                    console.log("2")
+                                }}
+                                secondaryTitle={"common.login_screen.return"}
+                                secondaryVariant={"secondary"}
+                                secondaryHref={() => {
+                                    router.navigate("/welcome-screen")
+                                }}
+                            />
+
+                        </View>
                     </View>
                 )}
             </Formik>
         </View>
     )
-    
+
 }
 
 export default LoginForm;

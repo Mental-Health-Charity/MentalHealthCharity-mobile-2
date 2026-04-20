@@ -31,8 +31,6 @@ export interface User {
     id: number;
 }
 
-export interface ResetPasswordPayload {
+export interface ResetPasswordEmailValues {
     email: string;
-    token: string;
-    new_password: string;
 }

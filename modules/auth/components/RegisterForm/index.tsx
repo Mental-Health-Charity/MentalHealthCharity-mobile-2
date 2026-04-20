@@ -7,15 +7,16 @@ import {RegisterFormValues} from "@/modules/auth/types";
 import {router} from "expo-router";
 import AuthScreenNavigation from "@/modules/auth/components/AuthScreenNavigation";
 import Input from "@/modules/shared/components/Input";
-import {useSession} from "@/modules/auth/context/ctx";
+import React from "react";
+
 
 interface IRegisterProps {
     onSubmit: (values: RegisterFormValues) => void;
 }
 
-const RegisterForm = ({...props}:IRegisterProps): JSX.Element => {
+const RegisterForm = ({onSubmit}:IRegisterProps)=> {
     const { t } = useTranslation();
-    const {register} = useSession()
+
 
     const initialValues: RegisterFormValues = {
         email: "",
@@ -35,20 +36,18 @@ const RegisterForm = ({...props}:IRegisterProps): JSX.Element => {
             .required(t("validation.required")),
     });
 
+
+
     return (
-        <View className="">
+        <View className="flex-1">
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                    console.log("działam");
-                    console.log("Form submitted:", values);
-
-                }}
+                onSubmit={onSubmit}
             >
-                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
 
-                        <View className="h-full flex items-start justify-around">
+                        <View className="flex flex-1 justify-between">
                             <View className="gap-4">
                             <Input
                                 variant="text"
@@ -94,21 +93,44 @@ const RegisterForm = ({...props}:IRegisterProps): JSX.Element => {
                                 }
                             />
 
-                            <View className="flex flex-row  mt-2">
-                                <Text className="text-sm text-gray-600">
-                                    {t("common.register_screen.have_account")}{" "}
-                                </Text>
-                                <Pressable onPress={() => router.navigate("/sign-in")}>
-                                    <Text className="text-sm text-[#2BB5A0] font-semibold">
-                                        {t("common.register_screen.login")}
+                                <View className="flex flex-row items-center gap-2 mt-2">
+                                    <Pressable
+                                        onPress={() => setFieldValue("policy_confirm", !values.policy_confirm)}
+                                        className={`w-5 h-5 rounded border ${
+                                            values.policy_confirm ? "bg-[#2BB5A0] border-[#2BB5A0]" : "border-[#C5C6CC]"
+                                        } items-center justify-center`}
+                                    >
+                                        {values.policy_confirm && (
+                                            <Text className="text-white text-xs">✓</Text>
+                                        )}
+                                    </Pressable>
+                                    <Text className="text-sm text-gray-600">
+                                        {t("common.register_screen.policy")}
                                     </Text>
-                                </Pressable>
+                                </View>
+                                {touched.policy_confirm && errors.policy_confirm && (
+                                    <Text className="text-red-500 text-sm">{errors.policy_confirm}</Text>
+                                )}
+                                <View className="flex flex-row  mt-2">
+                                    <Text className="text-sm text-gray-600">
+                                        {t("common.register_screen.have_account")}{" "}
+                                    </Text>
+                                    <Pressable onPress={() => router.navigate("/sign-in")}>
+                                        <Text className="text-sm text-[#2BB5A0] font-semibold">
+                                            {t("common.register_screen.login")}
+                                        </Text>
+                                    </Pressable>
+                                </View>
                             </View>
-                            </View>
+
                             <AuthScreenNavigation
                                 primaryTitle={"common.register_screen.register"}
                                 primaryVariant={"primary"}
-                                onPrimaryPress={handleSubmit}
+                                onPrimaryPress={() => {
+                                    console.log("1")
+                                    handleSubmit()
+                                    console.log("2")
+                                }}
                                 secondaryTitle={"common.login_screen.return"}
                                 secondaryVariant={"secondary"}
                                 secondaryHref={() => router.navigate("/welcome-screen")}
