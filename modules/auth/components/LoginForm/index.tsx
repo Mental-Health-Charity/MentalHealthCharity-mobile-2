@@ -5,7 +5,7 @@ import {LoginFormValues,} from "../../types"
 import {Pressable, Text, TextInput, View} from "react-native";
 import {router} from "expo-router";
 import AuthScreenNavigation from "@/modules/auth/components/AuthScreenNavigation";
-import {useToast} from "@/modules/shared/components/Toast";
+
 
 
 interface LoginFormProps {
@@ -14,7 +14,6 @@ interface LoginFormProps {
 
 const LoginForm = ({onSubmit}: LoginFormProps) => {
     const { t } = useTranslation();
-    const {showToast} = useToast();
 
     const initialValues = {
         email: "",
@@ -27,27 +26,13 @@ const LoginForm = ({onSubmit}: LoginFormProps) => {
         password: Yup.string().min(8, t("validation.invalid_password")).required(t("validation.required")),
     });
 
-    const handleSubmit = async (values: LoginFormValues) => {
-        try {
-            onSubmit(values)
 
-
-        }catch (error) {
-            console.error(error);
-            showToast({
-                type: "error",
-                title: "Błąd",
-                description: t("errors.unknown"),
-                duration: 4000
-            });
-        }
-    }
 
     return (
         <View className="flex-1">
             <Formik initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={handleSubmit}>
+                    onSubmit={onSubmit}>
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                     <View className="flex-1 flex-col justify-between">
                         <View className="gap-4 ">
