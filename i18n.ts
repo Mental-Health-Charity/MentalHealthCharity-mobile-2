@@ -1,7 +1,6 @@
 import * as Localization from "expo-localization";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import en from "./locales/i18n/en.json";
 import pl from "./locales/i18n/pl.json";
 import { Languages } from "./modules/shared/constants";
 
@@ -12,10 +11,10 @@ i18n.use(initReactI18next).init({
     lng:
         primaryLang && primaryLang.startsWith(Languages.PL)
             ? Languages.PL
-            : Languages.EN,
-    fallbackLng: Languages.EN,
+            : // TODO: add more languages in the future
+              Languages.PL,
+    fallbackLng: Languages.PL,
     resources: {
-        en: { translation: en },
         pl: { translation: pl },
     },
     interpolation: {
