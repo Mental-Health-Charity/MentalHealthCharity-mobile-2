@@ -1,21 +1,26 @@
-﻿export const resetPasswordSendEmailMutation = async (email: string) =>{
+﻿import { url } from "@/api";
+import handleApiError from "../../shared/helpers/handleApiError";
+import { ResetPasswordPayload, User } from "../types";
+
+export const resetPasswordMutation = async (payload: ResetPasswordPayload): Promise<User> => {
     try {
-        const resetRequestResponse = await fetch("https://backend.fundacjaperyskop.org/api/v1/users/reset-password-mail",{
+        const registerResponse = await fetch(url.users.resetPassword, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                "email": email,
-            })
-        })
+            body: JSON.stringify(payload),
+        });
 
-        const token: string = await resetRequestResponse.json()
-        if(!resetRequestResponse.ok){
-            throw new Error()
+        const newUser = await registerResponse.json();
+
+        if (!registerResponse.ok) {
+            handleApiError(newUser);
         }
-        return token
-    }catch(error){
-        console.log(error);
+
+        return newUser;
+    } catch (error) {
+        console.error("Error logging in:", error);
+        throw error;
     }
-}
+};

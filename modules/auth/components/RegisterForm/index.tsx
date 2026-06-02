@@ -10,11 +10,11 @@ import Input from "@/modules/shared/components/Input";
 import React from "react";
 
 
-interface IRegisterProps {
+interface IRegisterFormProps {
     onSubmit: (values: RegisterFormValues) => void;
 }
 
-const RegisterForm = ({onSubmit}:IRegisterProps)=> {
+const RegisterForm = ({onSubmit}:IRegisterFormProps)=> {
     const { t } = useTranslation();
 
 
@@ -124,16 +124,12 @@ const RegisterForm = ({onSubmit}:IRegisterProps)=> {
                             </View>
 
                             <AuthScreenNavigation
-                                primaryTitle={"common.register_screen.register"}
-                                primaryVariant={"primary"}
-                                onPrimaryPress={() => {
-                                    console.log("1")
-                                    handleSubmit()
-                                    console.log("2")
+                                submitTitle={t("common.login_screen.login")}
+                                onSubmit={handleSubmit}
+                                cancelTitle={t("common.login_screen.return")}
+                                onReturn={() => {
+                                    router.navigate("/welcome-screen");
                                 }}
-                                secondaryTitle={"common.login_screen.return"}
-                                secondaryVariant={"secondary"}
-                                secondaryHref={() => router.navigate("/welcome-screen")}
                             />
 
                         </View>

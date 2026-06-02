@@ -1,56 +1,76 @@
 {
-    "common": {
-        "login_screen": {
-            "description": "Zaloguj się na swoje konto",
-            "email": "Adres email",
-            "forgot_password": "Nie pamiętam hasła",
-            "header": "Witaj ponownie!",
-            "no_account": "Nie masz konta?",
-            "password": "Hasło",
-            "register": "Zarejestruj się"
-        },
-        "main_screen": {
-            "daily_quote": "Cytat dnia",
-            "hello": "Cześć, {{name}}!",
-            "quick_actions": "Szybkie działania",
-            "subtitle": "Jak się dziś czujesz?"
-        },
-        "navigation": {
-            "articles": "Artykuły",
-            "chat": "Czat",
-            "home": "Strona główna",
-            "my_account": "Moje konto"
-        },
-        "register_screen": {
-            "confirm_password": "Powtórz hasło",
-            "email": "Adres email",
-            "have_account": "Masz już konto?",
-            "login": "Zaloguj się",
-            "password": "Hasło",
-            "policy": "Zapoznałem się z regulaminem",
-            "username": "Nazwa użytkownika"
-        },
-        "reset_password_screen": {
-            "title": "Email wysłany",
-            "toast_description": "Sprawdź skrzynkę pocztową"
-        },
-        "welcome_screen": {
-            "description": "Skorzystaj z darmowej pomocy wolontariusza, lub zostań wolontariuszem i rusz z nami w misję!",
-            "header": "Darmowa pomoc psychologiczna",
-            "start": "Zaczynamy!"
-        }
+  ".article_status": "Status artykułu",
+  "article_status": {
+    "corrected": "Poprawiony",
+    "deleted": "Usunięty",
+    "published": "Opublikowany",
+    "rejected": "Odrzucony",
+    "sent": "Wyślij do recenzji"
+  },
+  "common": {
+    "login_screen": {
+      "description": "Zaloguj się na swoje konto",
+      "email": "Adres email",
+      "forgot_password": "Nie pamiętam hasła",
+      "header": "Witaj ponownie!",
+      "login": "Zaloguj się",
+      "no_account": "Nie masz konta?",
+      "password": "Hasło",
+      "return": "Powrót"
     },
-    "errors": {
-        "fail": "Błąd",
-        "unknown": "Wystąpił nieznany błąd. Spróbuj ponownie później"
+    "register_screen": {
+      "confirm_password": "Powtórz hasło",
+      "email": "Adres email",
+      "have_account": "Masz już konto?",
+      "login": "Zaloguj się",
+      "password": "Hasło",
+      "policy": "Zapoznałem się z regulaminem",
+      "register": "Zarejestruj się",
+      "register_success": "Rejestracja przebiegła pomyślnie",
+      "username": "Nazwa użytkownika"
     },
-    "validation": {
-        "incorrect_password_format": "Hasło musi zawierać co najmniej 8 znaków",
-        "invalid_email": "Podaj poprawny adres email",
-        "invalid_password": "Nieprawidłowe hasło",
-        "min_one_number": "Hasło musi zawierać co najmniej jedną cyfrę np. 1",
-        "min_one_uppercase": "Hasło musi zawierać co najmniej jedną wielką literę",
-        "passwords_must_match": "Hasła muszą być takie same",
-        "required": "To pole jest wymagane"
+    "success": "sukces",
+    "welcome_screen": {
+      "description": "Skorzystaj z darmowej pomocy wolontariusza, lub zostań wolontariuszem i rusz z nami w misję!",
+      "header": "Darmowa pomoc psychologiczna",
+      "start": "Zaczynamy!"
     }
+  },
+  "errors": {
+    "article_category_in_use": "Błąd, nie można przeprowadzić tej operacji na kategorii, ponieważ wybrana kategoria jest używana przez jakiś artykuł.",
+    "article_category_not_found": "Najpierw dodaj kategorię do artykułu",
+    "article_category_with_that_name_already_exists": "Kategoria o tej nazwie już istnieje",
+    "fail": "Operacja nie powiodła się. Spróbuj ponownie.",
+    "failed_to_create_chat": "Wystąpił problem podczas tworzenia czatu.",
+    "failed_to_create_report": "Wystąpił problem podczas tworzenia zgłoszenia.",
+    "failed_to_edit_chat": "Wystąpił problem podczas edycji czatu.",
+    "failed_to_fetch_chat": "Wystąpił problem podczas wczytywania rozmowy. Spróbuj ponownie później",
+    "failed_to_fetch_chat_note": "Wystąpił problem podczas wczytywania notatek. Spróbuj ponownie później",
+    "failed_to_fetch_public_profile": "Wystąpił problem podczas wczytywania profilu publicznego.",
+    "failed_to_fetch_reports": "Wystąpił problem podczas wczytywania zgłoszeń.",
+    "failed_to_fetch_user": "Wystąpił problem podczas wczytywania danych użytkownika.",
+    "failed_to_save_note": "Wystąpił problem podczas zapisywania notatki. Spróbuj ponownie później",
+    "failed_to_update_public_profile": "Wystąpił problem podczas aktualizacji profilu publicznego.",
+    "inactive_user": "Te konto nie jest aktywne. Wysłaliśmy wiadomość e-mail z instrukcjami aktywacji.",
+    "incorrect_email_or_password": "Nieprawidłowy email lub hasło",
+    "invalid_or_expired_confirmation_token": "To konto zostało już potwierdzone, lub link wygasł",
+    "unknown": "Wystąpił nieznany błąd. Spróbuj ponownie później",
+    "user_not_found": "Użytkownik o tym adresie email nie został znaleziony",
+    "username_already_exists": "Użytkownik o tej nazwie już istnieje"
+  },
+  "user": {
+    "chat_with": {
+      "volunteer": "_Wolontariusz"
+    },
+    "wait_for_chat": "Poczekaj na czat"
+  },
+  "validation": {
+    "incorrect_password_format": "Hasło musi zawierać co najmniej 8 znaków",
+    "invalid_email": "Podaj poprawny adres email",
+    "invalid_password": "Nieprawidłowe hasło",
+    "min_one_number": "Hasło musi zawierać co najmniej jedną cyfrę np. 1",
+    "min_one_uppercase": "Hasło musi zawierać co najmniej jedną wielką literę",
+    "passwords_must_match": "Hasła muszą być takie same",
+    "required": "To pole jest wymagane"
+  }
 }

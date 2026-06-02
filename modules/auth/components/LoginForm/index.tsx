@@ -4,13 +4,13 @@ import { Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import { Pressable, Text, TextInput, View } from "react-native";
 import * as Yup from "yup";
-import { LoginFormValues } from "../../types";
+import { LoginPayload } from "../../types";
 
-interface LoginFormProps {
-    onSubmit: (values: LoginFormValues) => void;
+interface ILoginFormProps {
+    onSubmit: (values: LoginPayload) => void;
 }
 
-const LoginForm = ({ onSubmit }: LoginFormProps) => {
+const LoginForm = ({ onSubmit }: ILoginFormProps) => {
     const { t } = useTranslation();
 
     const initialValues = {
@@ -99,7 +99,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
                                         }
                                     >
                                         <Text className="text-[#2BB5A0] font-semibold text-sm">
-                                            {t("common.login_screen.register")}
+                                            {t("common.register_screen.register")}
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -108,16 +108,10 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
 
                         <View className="bg-[#E6FFFA]">
                             <AuthScreenNavigation
-                                primaryTitle={"common.login_screen.login"}
-                                primaryVariant={"primary"}
-                                onPrimaryPress={() => {
-                                    console.log("1");
-                                    handleSubmit();
-                                    console.log("2");
-                                }}
-                                secondaryTitle={"common.login_screen.return"}
-                                secondaryVariant={"secondary"}
-                                secondaryHref={() => {
+                                submitTitle={t("common.login_screen.login")}
+                                onSubmit={handleSubmit}
+                                cancelTitle={t("common.login_screen.return")}
+                                onReturn={() => {
                                     router.navigate("/welcome-screen");
                                 }}
                             />

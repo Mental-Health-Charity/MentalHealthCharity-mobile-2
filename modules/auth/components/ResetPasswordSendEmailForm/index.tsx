@@ -6,16 +6,16 @@ import Input from "@/modules/shared/components/Input";
 import {router} from "expo-router";
 import AuthScreenNavigation from "@/modules/auth/components/AuthScreenNavigation";
 import {useTranslation} from "react-i18next";
-import {ResetPasswordEmailValues} from "@/modules/auth/types";
+import {ResetPasswordPayload} from "@/modules/auth/types";
 
-interface ResetPasswordSendEmailProps {
-    onSubmit: (values: ResetPasswordEmailValues) => void;
+interface IResetPasswordEmailProps {
+    onSubmit: (values: ResetPasswordPayload) => void;
 }
 
-const ResetPasswordSendEmail = ({onSubmit}: ResetPasswordSendEmailProps) => {
+const ResetPasswordSendEmail = ({onSubmit}: IResetPasswordEmailProps) => {
     const { t } = useTranslation();
 
-    const initialValues: ResetPasswordEmailValues = {
+    const initialValues: ResetPasswordPayload = {
         email: "",
     }
 
@@ -45,12 +45,12 @@ const ResetPasswordSendEmail = ({onSubmit}: ResetPasswordSendEmailProps) => {
                             />
                         </View>
                         <AuthScreenNavigation
-                            primaryTitle={"common.reset_password_screen.send_email"}
-                            primaryVariant={"primary"}
-                            onPrimaryPress={handleSubmit}
-                            secondaryTitle={"common.reset_password_screen.return"}
-                            secondaryVariant={"secondary"}
-                            secondaryHref={() => router.navigate("/sign-in")}
+                            submitTitle={t("common.login_screen.login")}
+                            onSubmit={handleSubmit}
+                            cancelTitle={t("common.login_screen.return")}
+                            onReturn={() => {
+                                router.navigate("/sign-in");
+                            }}
                         />
 
                     </View>

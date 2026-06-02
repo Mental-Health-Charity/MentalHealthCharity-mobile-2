@@ -1,9 +1,28 @@
-﻿import {RegisterFormValues, RegisterResponse} from "@/modules/auth/types";
+﻿import { RegisterPayload, RegisterResponse } from "@/modules/auth/types";
+import handleApiError from "@/modules/shared/helpers/handleApiError";
+import { url } from "@/api";
 
-
-export const registerMutation = async (data:RegisterFormValues): Promise<RegisterResponse> => {
+export const registerMutation = async (
+    data: RegisterPayload,
+): Promise<RegisterResponse> => {
     try {
-        const registerResponse = await fetch("https://backend.fundacjaperyskop.org/api/v1/users/", {
+        const payload: Record<string, string> = {
+            email: data.email,
+            password: data.password,
+            full_name: data.full_name,
+        };
+
+        //Zapytaj po co?
+
+        if (data.intent) {
+            payload.intent = data.intent;
+        }
+
+        if (data.next) {
+            payload.next = data.next;
+        }
+
+        const registerResponse = await fetch(url.users.createUser, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -13,18 +32,17 @@ export const registerMutation = async (data:RegisterFormValues): Promise<Registe
                 password: data.password,
                 full_name: data.full_name,
             }),
-        })
+        });
 
         const newUser = await registerResponse.json();
 
         if (!registerResponse.ok) {
-            console.log(Error)
-            throw new Error()
+            throw handleApiError(newUser);
         }
 
         return newUser;
-    }catch (err) {
-        console.error(err);
-        throw err
+    } catch (err) {
+        console.error("Error logging in:", err);
+        throw err;
     }
-}
+};

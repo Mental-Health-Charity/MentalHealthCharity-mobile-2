@@ -1,24 +1,24 @@
-import { Stack, useRouter, useSegments } from 'expo-router';
-import { useEffect } from 'react';
-import { useSession } from '@/modules/auth/context/ctx';
+import { Stack, useRouter, useSegments } from "expo-router";
+import { useEffect } from "react";
+import { useUser } from "@/modules/auth/components/AuthContextProvider";
 
 export default function ProtectedLayout() {
-    const { token, isLoading } = useSession();
+    const { user, isLoading } = useUser();
     const router = useRouter();
     const segments = useSegments();
 
     useEffect(() => {
         if (isLoading) return;
 
-        const inProtectedGroup = segments[0] === '(app)';
+        const inProtectedGroup = segments[0] === "(app)";
 
-        if (!token && inProtectedGroup) {
-            router.replace('/welcome-screen');
+        if (!user && inProtectedGroup) {
+            router.replace("/welcome-screen");
         }
-    }, [token, isLoading, segments]);
+    }, [user, isLoading, segments]);
 
     if (isLoading) {
-        return null; // or a loading spinner
+        return null;
     }
 
     return (

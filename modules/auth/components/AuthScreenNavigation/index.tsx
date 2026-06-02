@@ -1,34 +1,30 @@
-﻿import {ReactNode} from "react";
-import {ImageBackground, View} from "react-native";
-import CustomButton, {IButtonProps} from "@/modules/shared/components/Button";
+﻿import { ReactNode } from "react";
+import { ImageBackground, View } from "react-native";
+import CustomButton from "@/modules/shared/components/Button";
 // @ts-ignore
-import backgroundImage from "../../../../assets/images/Group68.png"
-import {useTranslation} from "react-i18next";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-
-
-
+import backgroundImage from "../../../../assets/images/Group68.png";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface IAuthScreenNavigation {
-    primaryTitle: string;
-    primaryVariant: IButtonProps['variant'];
-    onPrimaryPress: () => void;
-    secondaryTitle: string;
-    secondaryVariant: IButtonProps['variant'];
-    secondaryHref: () => void;
+    submitTitle: string;
+    onSubmit: () => void;
+    cancelTitle: string;
+    onReturn: () => void;
 }
 
-
-
-export default function AuthScreenNavigation({...props}: IAuthScreenNavigation): ReactNode {
-    const { t } = useTranslation();
+export default function AuthScreenNavigation({
+                                                 submitTitle,
+                                                 onSubmit,
+                                                 cancelTitle,
+                                                 onReturn,
+                                             }: IAuthScreenNavigation): ReactNode {
     const insets = useSafeAreaInsets();
-    return(
-        <View className="flex flex-col -mx-8 ">
+
+    return (
+        <View className="flex flex-col -mx-8">
             <ImageBackground
                 resizeMode="cover"
                 style={{
-
                     paddingBottom: insets.bottom,
                     paddingTop: 60,
                     width: '100%',
@@ -37,18 +33,18 @@ export default function AuthScreenNavigation({...props}: IAuthScreenNavigation):
                 source={backgroundImage}
             >
                 <CustomButton
-                    width={"auto"}
-                    title={t(`${props.primaryTitle}`)}
-                    variant={props.primaryVariant}
-                    onPress={props.onPrimaryPress}
+                    width="auto"
+                    title={submitTitle}
+                    variant="primary"
+                    onPress={onSubmit}
                 />
                 <CustomButton
-                    width={"full"}
-                    title={t(`${props.secondaryTitle}`)}
-                    variant={props.secondaryVariant}
-                    onPress={props.secondaryHref}
+                    width="full"
+                    title={cancelTitle}
+                    variant="secondary"
+                    onPress={onReturn}
                 />
             </ImageBackground>
         </View>
-    )
+    );
 }

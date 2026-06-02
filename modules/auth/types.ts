@@ -5,12 +5,22 @@ export interface LoginFormValues {
     password: string;
 }
 
+export interface LoginPayload extends LoginFormValues{
+    intent?: string;
+    next?: string;
+}
+
 export interface RegisterFormValues {
     password: string;
     email: string;
     full_name: string;
     confirmPassword: string;
     policy_confirm: boolean;
+}
+
+export interface RegisterPayload extends RegisterFormValues{
+    intent?: string;
+    next?: string;
 }
 
 export interface LoginAccessTokenResponse {
@@ -31,6 +41,8 @@ export interface User {
     id: number;
 }
 
-export interface ResetPasswordEmailValues {
+export interface ResetPasswordPayload {
     email: string;
+    token: string;
+    new_password: string;
 }
