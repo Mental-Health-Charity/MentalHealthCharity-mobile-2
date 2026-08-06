@@ -37,6 +37,21 @@ export interface editPublicProfilePayload {
     id: number;
 }
 
+export interface UpdatePublicProfilePayload {
+    user_id: number;
+    avatar_url: string;
+    description: string;
+}
+
+export interface UpdateAvatarPayload {
+    user_id: number;
+    avatar: {
+        uri: string;
+        name: string;
+        type: string;
+    };
+}
+
 export interface ChangePasswordBeginPayload {
     email: string;
 }

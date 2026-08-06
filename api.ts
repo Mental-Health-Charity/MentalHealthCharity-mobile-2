@@ -2,6 +2,7 @@ import buildQuery from "./helpers/buildQuery";
 import {
     ArticleCategoryOptions,
     ReadArticleOptions,
+    ReadArticlesByUserOptions,
     ReadArticlesOptions,
     ReadPublicArticlesOptions,
     SearchPublicArticlesOptions,
@@ -57,6 +58,12 @@ export const url = {
         updateUserAvatar({ id }: ReadUserByIdOptions) {
             return `${baseUrl}user-public-profile/${id}/avatar`;
         },
+        updatePublicProfile({ id }: ReadUserByIdOptions) {
+            return `${baseUrl}user-public-profile/${id}`;
+        },
+        readPublicProfile({ id }: ReadUserByIdOptions) {
+            return `${baseUrl}user-public-profile/${id}`;
+        },
         updateUserByAdmin({ id }: ReadUserByIdOptions) {
             return `${baseUrl}users/${id}/edit-as-admin`;
         },
@@ -87,7 +94,7 @@ export const url = {
             const query = buildQuery(options);
             return `${baseUrl}article/public/search?${query}`;
         },
-        readByUser({ author, ...props }: ReadPublicArticlesOptions) {
+        readByUser({ author, ...props }: ReadArticlesByUserOptions) {
             const query = buildQuery(props);
             return `${baseUrl}article/public/user/${author}?${query}`;
         },

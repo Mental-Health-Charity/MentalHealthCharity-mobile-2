@@ -15,6 +15,11 @@ export interface ReadPublicArticlesOptions extends ReadArticlesOptions {
     author?: number;
 }
 
+export interface ReadArticlesByUserOptions extends DefaultPaginationOptions {
+    author: number;
+    status?: ArticleStatus;
+}
+
 export interface ReadArticleOptions {
     id: number;
 }

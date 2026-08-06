@@ -132,7 +132,18 @@
     "restore_error": "Nie udało się odtworzyć sesji"
   },
   "settings": {
-    "title": "Ustawienia"
+    "change_photo": "Zmień zdjęcie",
+    "description": "Opis",
+    "description_placeholder": "Napisz coś o sobie...",
+    "my_posts": "Moje posty",
+    "no_posts": "Brak postów",
+    "permission_denied": "Brak dostępu do galerii. Zmień ustawienia w systemie.",
+    "photo_error": "Nie udało się zmienić zdjęcia profilowego.",
+    "photo_saved": "Zdjęcie profilowe zostało zaktualizowane",
+    "save_error": "Nie udało się zapisać profilu. Spróbuj ponownie.",
+    "saved": "Profil został zapisany",
+    "title": "Ustawienia",
+    "logout": "Wyloguj się"
   },
   "validation": {
     "age": {
