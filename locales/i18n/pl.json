@@ -135,6 +135,7 @@
     "change_photo": "Zmień zdjęcie",
     "description": "Opis",
     "description_placeholder": "Napisz coś o sobie...",
+    "logout": "Wyloguj się",
     "my_posts": "Moje posty",
     "no_posts": "Brak postów",
     "permission_denied": "Brak dostępu do galerii. Zmień ustawienia w systemie.",
@@ -142,8 +143,7 @@
     "photo_saved": "Zdjęcie profilowe zostało zaktualizowane",
     "save_error": "Nie udało się zapisać profilu. Spróbuj ponownie.",
     "saved": "Profil został zapisany",
-    "title": "Ustawienia",
-    "logout": "Wyloguj się"
+    "title": "Ustawienia"
   },
   "validation": {
     "age": {

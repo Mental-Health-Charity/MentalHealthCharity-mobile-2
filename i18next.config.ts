@@ -7,7 +7,7 @@ export default defineConfig({
         input: "{app,modules,screens}/**/*.{ts,tsx,js,jsx}",
         output: "./locales/i18n/{{language}}.json",
         defaultNS: false,
-        removeUnusedKeys: true,
+        removeUnusedKeys: false,
         defaultValue(key) {
             return `__NOT_TRANSLATED__ (key: ${key})`;
         },
