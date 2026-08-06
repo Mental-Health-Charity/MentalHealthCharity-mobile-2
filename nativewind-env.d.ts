@@ -1,1 +1,1 @@
-/// <reference types.ts="nativewind/types" />
+/// <reference types="nativewind/types" />

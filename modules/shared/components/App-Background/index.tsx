@@ -1,4 +1,4 @@
-﻿import { ImageBackground, View } from "react-native";
+import { ImageBackground, View } from "react-native";
 import React from "react";
 
 interface IProps {
@@ -6,17 +6,13 @@ interface IProps {
 }
 
 export default function AppBackground({ children }: IProps) {
-
     return (
         <ImageBackground
             source={require("../../../../assets/images/Group 69.png")}
-            className=" w-full h-1/2"
+            className="flex-1 w-full"
             resizeMode="cover"
         >
-            <View className="flex-1 flex justify-between">
-                <View className="flex-1">{children}</View>
-
-            </View>
+            <View className="flex-1">{children}</View>
         </ImageBackground>
     );
 }

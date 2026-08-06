@@ -1,31 +1,26 @@
-﻿import AppBackground from "@/modules/shared/components/App-Background";
-import { Text } from "react-native-paper";
-import { TouchableOpacity, View } from "react-native";
+import AppBackground from "@/modules/shared/components/App-Background";
+import {
+    ActivityIndicator,
+    FlatList,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { useTranslation } from "react-i18next";
 import { useUser } from "@/modules/auth/components/AuthContextProvider";
 import CustomButton from "@/modules/shared/components/Button";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import debounce from "lodash.debounce";
-import { articlesQueryOptions } from "@/modules/articles/queries/articlesQueryOptions";
+import { router } from "expo-router";
 import { ArticleStatus } from "@/modules/articles/constants";
 import ArticleCard from "@/modules/articles/components/ArticleCard";
-import { router } from "expo-router";
-import { Roles } from "@/modules/users/constants";
 import ArticleStatusesList from "@/modules/articles/components/ArticlesStatusesList";
+import { Roles } from "@/modules/users/constants";
+import { useArticles } from "@/modules/articles/hooks/useArticles";
 
-type Props = {};
-
-const MainScreen = (props: Props) => {
+const MainScreen = () => {
     const { user } = useUser();
-    const [query, setQuery] = useState("");
-    const [status, setStatus] = useState<ArticleStatus>(
-        ArticleStatus.PUBLISHED,
-    );
-    const [debouncedQuery, setDebouncedQuery] = useState(query);
-    const page = 1;
     const { t } = useTranslation();
-
+    const { status, filteredAndSortedArticles, isLoading, handleStatusChange } =
+        useArticles();
     const statuses = [
         {
             key: ArticleStatus.DRAFT,
@@ -37,72 +32,91 @@ const MainScreen = (props: Props) => {
         { key: ArticleStatus.PUBLISHED, title: t("article_status.published") },
         { key: ArticleStatus.DELETED, title: t("article_status.deleted") },
     ];
-
-    const debouncedSetQuery = useCallback(
-        debounce((q) => {
-            setDebouncedQuery(q);
-        }, 500),
-        [],
-    );
-
-    useEffect(() => {
-        debouncedSetQuery(query);
-    }, [query, debouncedSetQuery]);
-
-    const { data, isLoading } = useQuery(
-        articlesQueryOptions({ q: debouncedQuery, page, size: 50, status }),
-    );
-
-    const filteredAndSortedArticles = useMemo(() => {
-        if (!data?.items) return [];
-
-        return data.items
-            .filter((article) => article.status === status)
-            .sort(
-                (a, b) =>
-                    new Date(b.creation_date).getTime() -
-                    new Date(a.creation_date).getTime(),
-            );
-    }, [data, status]);
-
     const hasAccessToStatuses =
         user?.user_role === Roles.REDACTOR ||
         user?.user_role === Roles.ADMIN ||
         user?.user_role === Roles.VOLUNTEERSUPERVISOR;
+    const hasAssignedChat = Boolean(user?.is_assigned_to_chat);
 
     return (
         <AppBackground>
-            <View>
-                <Text>{user?.full_name}</Text>
-                <Text>{t("common.login_screen.header")}</Text>
+            <View className="px-4 pb-3 pt-4">
+                <View className="gap-4 rounded-lg bg-white/95 p-4">
+                    <View className="gap-1">
+                        <Text className="text-sm font-medium text-slate-500">
+                            {t("common.login_screen.header")}
+                        </Text>
+                        <Text
+                            className="text-2xl font-bold leading-8 text-slate-900"
+                            numberOfLines={2}
+                        >
+                            {user?.full_name}
+                        </Text>
+                    </View>
 
-                {user?.is_assigned_to_chat ? (
                     <CustomButton
-                        title={t("user.chat_with.volunteer")}
-                        variant={"primary"}
+                        title={
+                            hasAssignedChat
+                                ? "user.chat_with.volunteer"
+                                : "user.wait_for_chat"
+                        }
+                        variant={hasAssignedChat ? "primary" : "secondary"}
+                        width="full"
+                        disabled={!hasAssignedChat}
+                        onPress={() => router.push("/chats")}
                     />
-                ) : (
-                    <CustomButton
-                        title={t("user.wait_for_chat")}
-                        variant={"secondary"}
-                    />
+                </View>
+
+                {hasAccessToStatuses && (
+                    <View className="mt-3">
+                        <ArticleStatusesList
+                            statuses={statuses}
+                            selectedStatus={status}
+                            onChange={handleStatusChange}
+                        />
+                    </View>
                 )}
             </View>
 
-            {hasAccessToStatuses && (
-                <ArticleStatusesList status={status} onChange={setStatus} />
-            )}
-
-            {filteredAndSortedArticles.map((item) => (
-                <TouchableOpacity
-                    key={item.id}
-                    onPress={() => {
-                        router.push(`/articles/${item.id}`);
-                    }}
-                >
-                    <ArticleCard article={item} />
-                </TouchableOpacity>
-            ))}
+            <FlatList
+                data={filteredAndSortedArticles}
+                keyExtractor={(item) => String(item.id)}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    paddingHorizontal: 16,
+                    paddingTop: 6,
+                    paddingBottom: 36,
+                }}
+                ItemSeparatorComponent={() => <View className="h-4" />}
+                ListEmptyComponent={
+                    <View className="items-center py-8">
+                        {isLoading ? (
+                            <ActivityIndicator />
+                        ) : (
+                            <Text className="text-center text-base text-slate-600">
+                                {t("articles.empty", {
+                                    defaultValue: "Brak artykułów",
+                                })}
+                            </Text>
+                        )}
+                    </View>
+                }
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        activeOpacity={0.85}
+                        onPress={() => {
+                            router.push({
+                                pathname: "/articles/[id]",
+                                params: {
+                                    id: String(item.id),
+                                },
+                            });
+                        }}
+                    >
+                        <ArticleCard article={item} />
+                    </TouchableOpacity>
+                )}
+            />
         </AppBackground>
     );
 };

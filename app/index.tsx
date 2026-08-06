@@ -1,4 +1,4 @@
-﻿import { Redirect } from "expo-router";
+import { Redirect } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
 import { useUser } from "@/modules/auth/components/AuthContextProvider";
 
@@ -20,7 +20,7 @@ export default function Index() {
     }
 
     if (user) {
-        return <Redirect href="/(app)" />;
+        return <Redirect href="/" />;
     }
 
     return <Redirect href="/welcome-screen" />;

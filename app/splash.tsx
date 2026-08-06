@@ -1,4 +1,4 @@
-﻿import { SplashScreen } from "expo-router";
+import { SplashScreen } from "expo-router";
 import { useUser } from "@/modules/auth/components/AuthContextProvider";
 
 function SplashScreenController() {

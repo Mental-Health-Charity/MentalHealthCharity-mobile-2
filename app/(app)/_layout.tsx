@@ -15,7 +15,7 @@ export default function ProtectedLayout() {
         if (!user && inProtectedGroup) {
             router.replace("/welcome-screen");
         }
-    }, [user, isLoading, segments]);
+    }, [user, isLoading, segments, router]);
 
     if (isLoading) {
         return null;

@@ -14,34 +14,27 @@ const RegisterScreen: React.FC = () => {
     const { showToast } = useToast();
 
     const handleSubmit = async (values: RegisterPayload) => {
-        try {
-            setLoading(true);
-            register.mutate(values, {
-                onSuccess: () => {
-                    router.push("/sign-in");
-                    showToast({
-                        type: "success",
-                        title: t("common.success"),
-                        description: t(
-                            "common.register_screen.register_success",
-                        ),
-                        duration: 400,
-                    });
-                    setLoading(false);
-                },
-                onError: () => {
-                    setLoading(false);
-                },
-            });
-        } catch (error) {
-            console.error(error);
-            showToast({
-                type: "error",
-                title: t("errors.fail"),
-                description: t("errors.unknown"),
-                duration: 4000,
-            });
-        }
+        register.mutate(values, {
+            onSuccess: () => {
+                router.push("/sign-in");
+                showToast({
+                    type: "success",
+                    title: t("common.success"),
+                    description: t("common.register_screen.register_success"),
+                    duration: 400,
+                });
+                setLoading(false);
+            },
+            onError: () => {
+                setLoading(false);
+                showToast({
+                    type: "error",
+                    title: t("errors.fail"),
+                    description: t("errors.unknown"),
+                    duration: 4000,
+                });
+            },
+        });
     };
 
     return (

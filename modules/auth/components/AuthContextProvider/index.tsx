@@ -12,14 +12,20 @@ import {
     RegisterResponse,
     User,
 } from "@/modules/auth/types";
-//import { clearAuthSession, isAuthSessionError, redirectToLogin } from "../../helpers/session"; Po co jest ten plik?
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 import { registerMutation } from "@/modules/auth/queries/registerMutation";
 import { loginMutation } from "@/modules/auth/queries/tokenMutation";
 import handleApiError from "@/modules/shared/helpers/handleApiError";
 import Loader from "@/modules/shared/components/Loader";
 import fetchUserDataQuery from "@/modules/auth/queries/fetchUserDataQuery";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 interface UserContextType {
     user: User | undefined;
@@ -27,7 +33,7 @@ interface UserContextType {
     isLoading: boolean;
     error: Error | null;
     register: UseMutationResult<RegisterResponse, Error, RegisterPayload>;
-    logout: () => void;
+    logout: () => Promise<void>;
     isFetchingUser: boolean;
 }
 
@@ -40,12 +46,25 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserContextProvider: React.FC<Props> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>();
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
-    const endSession = () => {
-        SecureStore.deleteItemAsync("token");
-        SecureStore.deleteItemAsync("jwt_type");
-        setIsAuthenticated(false);
-    };
+    useEffect(() => {
+        const restoreSession = async () => {
+            try {
+                const token = await SecureStore.getItemAsync("token");
+                setIsAuthenticated(Boolean(token));
+            } catch (error) {
+                setIsAuthenticated(false);
+                await handleApiError(
+                    error instanceof Error
+                        ? error
+                        : new Error(t("session.restore_error")),
+                );
+            }
+        };
+
+        void restoreSession();
+    }, [t]);
 
     const register = useMutation({
         mutationFn: registerMutation,
@@ -53,33 +72,47 @@ export const UserContextProvider: React.FC<Props> = ({ children }) => {
 
     const login = useMutation({
         mutationFn: loginMutation,
-        onSuccess: (data) => {
-            SecureStore.setItemAsync("token", data.access_token);
-            SecureStore.setItemAsync("jwt_type", data.token_type);
+        onSuccess: async (data) => {
+            await Promise.all([
+                SecureStore.setItemAsync("token", data.access_token),
+                SecureStore.setItemAsync("jwt_type", data.token_type),
+            ]);
+
             setIsAuthenticated(true);
         },
         onError: (error: Error) => {
-            handleApiError(Error);
-            // endSession(); Po co jest ta funkcja? Dlaczego tutaj?
+            throw handleApiError(error);
         },
     });
+
+    const endSession = async () => {
+        await Promise.all([
+            SecureStore.deleteItemAsync("token"),
+            SecureStore.deleteItemAsync("jwt_type"),
+        ]);
+
+        queryClient.removeQueries({
+            queryKey: ["userData"],
+        });
+
+        setIsAuthenticated(false);
+    };
+
+    const logout = async () => {
+        await endSession();
+        router.replace("/");
+    };
     const {
         data: user,
-        refetch,
         isLoading,
         isFetching,
         error,
     } = useQuery<User, Error>({
         queryKey: ["userData"],
         queryFn: fetchUserDataQuery,
-        enabled: isAuthenticated,
+        enabled: isAuthenticated === true,
         retry: false,
     });
-
-    const logout = () => {
-        endSession();
-        router.push("/");
-    };
 
     return (
         <UserContext.Provider
@@ -95,7 +128,7 @@ export const UserContextProvider: React.FC<Props> = ({ children }) => {
         >
             {children}
             {isLoading && (
-                <Loader text="Trwa logowanie..." variant="fullscreen" />
+                <Loader text={t("session.logging_in")} variant="fullscreen" />
             )}
         </UserContext.Provider>
     );
@@ -104,8 +137,9 @@ export const UserContextProvider: React.FC<Props> = ({ children }) => {
 export const useUser = (): UserContextType => {
     const context = useContext(UserContext);
 
-    if (!context) {
-        throw new Error("useUser must be used within a UserProvider");
+    if (context === undefined) {
+        throw new Error("useUser must be used within a UserContextProvider");
     }
+
     return context;
 };

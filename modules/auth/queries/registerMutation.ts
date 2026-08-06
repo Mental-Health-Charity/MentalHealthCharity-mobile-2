@@ -12,8 +12,6 @@ export const registerMutation = async (
             full_name: data.full_name,
         };
 
-        //Zapytaj po co?
-
         if (data.intent) {
             payload.intent = data.intent;
         }
@@ -33,11 +31,10 @@ export const registerMutation = async (
                 full_name: data.full_name,
             }),
         });
-
         const newUser = await registerResponse.json();
 
         if (!registerResponse.ok) {
-            throw handleApiError(newUser);
+            await handleApiError(newUser);
         }
 
         return newUser;

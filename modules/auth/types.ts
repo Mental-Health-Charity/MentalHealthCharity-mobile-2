@@ -5,7 +5,7 @@ export interface LoginFormValues {
     password: string;
 }
 
-export interface LoginPayload extends LoginFormValues{
+export interface LoginPayload extends LoginFormValues {
     intent?: string;
     next?: string;
 }
@@ -18,7 +18,7 @@ export interface RegisterFormValues {
     policy_confirm: boolean;
 }
 
-export interface RegisterPayload extends RegisterFormValues{
+export interface RegisterPayload extends RegisterFormValues {
     intent?: string;
     next?: string;
 }
@@ -37,7 +37,12 @@ export interface User {
     full_name: string;
     user_role: Roles;
     is_assigned_to_chat: boolean;
+    excluded_from_automation: boolean;
     chat_avatar_url?: string;
+    user_public_profile?: {
+        avatar_url?: string;
+        description?: string;
+    } | null;
     id: number;
 }
 

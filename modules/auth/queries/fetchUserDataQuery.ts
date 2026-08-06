@@ -16,11 +16,15 @@ async function parseBody(response: Response) {
 
 const fetchUserDataQuery = async (): Promise<User> => {
     try {
-        const token = SecureStore.getItemAsync("token");
-        const tokenType = SecureStore.getItemAsync("jwt_type");
+        const [token, tokenType] = await Promise.all([
+            SecureStore.getItemAsync("token"),
+            SecureStore.getItemAsync("jwt_type"),
+        ]);
         if (!token || !tokenType) {
             throw new ApiError("Missing token", 401);
         }
+
+        console.log(url.users.readUsersMe);
 
         const response = await fetch(url.users.readUsersMe, {
             headers: {
@@ -28,6 +32,7 @@ const fetchUserDataQuery = async (): Promise<User> => {
             },
         });
         const data = await parseBody(response);
+        console.log(data);
 
         if (!response.ok) {
             const message =

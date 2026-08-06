@@ -1,5 +1,4 @@
-﻿import * as SecureStore from 'expo-secure-store';
-
+import * as SecureStore from "expo-secure-store";
 
 type GetAuthHeadersOptions = {
     withContentType?: boolean;
@@ -10,14 +9,14 @@ const getAuthHeaders = (options: GetAuthHeadersOptions = {}): Headers => {
 
     const headers = new Headers();
 
-    const jwtTokenType = SecureStore.getItem('jwtToken');
     const jwtToken = SecureStore.getItem("token");
+    const jwtTokenType = SecureStore.getItem("jwt_type") ?? "Bearer";
 
     if (withContentType) {
         headers.append("Content-Type", "application/json");
     }
 
-    if (jwtTokenType && jwtToken) {
+    if (jwtToken) {
         headers.append("Authorization", `${jwtTokenType} ${jwtToken}`);
     }
 

@@ -7,6 +7,26 @@
     "rejected": "Odrzucony",
     "sent": "Wyślij do recenzji"
   },
+  "articles": {
+    "empty": "Brak artykułów"
+  },
+  "chat": {
+    "connection_closed": "Połączenie zamknięte",
+    "connection_closing": "Zamykanie połączenia",
+    "connection_connecting": "Łączenie",
+    "connection_open": "Połączono",
+    "connection_uninstantiated": "Połączenie nierozpoczęte"
+  },
+  "chat_list": {
+    "delete_accessibility_label": "Usuń czat {{name}}",
+    "empty": "Brak czatów",
+    "fetch_error_description": "Spróbuj odświeżyć ekran za chwilę.",
+    "fetch_error_title": "Nie udało się pobrać czatów",
+    "loading": "Ładujemy listę czatów...",
+    "no_messages": "Brak wiadomości",
+    "waiting_description": "Formularz jest już wysłany. Poinformujemy Cię, gdy pojawi się dostępny czat.",
+    "waiting_title": "Jeszcze nikt nie został przydzielony"
+  },
   "common": {
     "login_screen": {
       "description": "Zaloguj się na swoje konto",
@@ -36,10 +56,16 @@
       "start": "Zaczynamy!"
     }
   },
+  "common_return": "Powrót",
+  "crisis": {
+    "under_18_title": "Musisz mieć ukończone 18 lat"
+  },
+  "error": "Błąd",
   "errors": {
     "article_category_in_use": "Błąd, nie można przeprowadzić tej operacji na kategorii, ponieważ wybrana kategoria jest używana przez jakiś artykuł.",
     "article_category_not_found": "Najpierw dodaj kategorię do artykułu",
     "article_category_with_that_name_already_exists": "Kategoria o tej nazwie już istnieje",
+    "article_not_found": "Nie znaleziono artykułu",
     "fail": "Operacja nie powiodła się. Spróbuj ponownie.",
     "failed_to_create_chat": "Wystąpił problem podczas tworzenia czatu.",
     "failed_to_create_report": "Wystąpił problem podczas tworzenia zgłoszenia.",
@@ -58,19 +84,79 @@
     "user_not_found": "Użytkownik o tym adresie email nie został znaleziony",
     "username_already_exists": "Użytkownik o tej nazwie już istnieje"
   },
-  "user": {
-    "chat_with": {
-      "volunteer": "_Wolontariusz"
+  "form": {
+    "mentee": {
+      "contact_label": "Preferowany kontakt"
     },
-    "wait_for_chat": "Poczekaj na czat"
+    "mentee_form": {
+      "age_label": "Wiek",
+      "back": "Wstecz",
+      "consent_label": "Akceptuję regulamin i zgodę na kontakt.",
+      "contact": {
+        "email": "E-mail",
+        "phone": "Telefon"
+      },
+      "description_label": "Opisz, czego potrzebujesz",
+      "missing_preference_description": "Wybierz preferowaną formę kontaktu.",
+      "missing_preference_title": "Uzupełnij formularz",
+      "name_label": "Imię i nazwisko",
+      "preference_label": "Jak chcesz rozmawiać?",
+      "referral_source_label": "Skąd o nas wiesz?",
+      "sending": "Wysyłanie...",
+      "step_indicator": "Krok {{current}} z {{total}}",
+      "submit_success_description": "Wróć do czatów, gdy zostanie przydzielona osoba.",
+      "submit_success_title": "Formularz został wysłany",
+      "title": "Formularz wsparcia"
+    },
+    "next": "Dalej",
+    "submit": "Wyślij"
+  },
+  "form_sorting": {
+    "max_stage": "Najwyższy etap",
+    "min_stage": "Najniższy etap",
+    "newest": "Najnowsze",
+    "oldest": "Najstarsze"
+  },
+  "form_status": {
+    "accepted": "Zaakceptowane",
+    "rejected": "Odrzucone",
+    "waited": "Oczekujące"
+  },
+  "navigation": {
+    "chats": "Czaty",
+    "home": "Główna",
+    "options": "Opcje"
+  },
+  "session": {
+    "logging_in": "Trwa logowanie...",
+    "restore_error": "Nie udało się odtworzyć sesji"
+  },
+  "settings": {
+    "title": "Ustawienia"
   },
   "validation": {
+    "age": {
+      "min": "Musisz mieć ukończone 18 lat"
+    },
+    "consent": {
+      "required": "Zgoda jest wymagana"
+    },
+    "contacts": {
+      "min": "Wybierz co najmniej jedną formę kontaktu"
+    },
+    "description": {
+      "tooShort": "Opis musi mieć co najmniej 10 znaków"
+    },
     "incorrect_password_format": "Hasło musi zawierać co najmniej 8 znaków",
     "invalid_email": "Podaj poprawny adres email",
     "invalid_password": "Nieprawidłowe hasło",
     "min_one_number": "Hasło musi zawierać co najmniej jedną cyfrę np. 1",
     "min_one_uppercase": "Hasło musi zawierać co najmniej jedną wielką literę",
+    "name": {
+      "tooShort": "Imię musi mieć co najmniej 2 znaki"
+    },
     "passwords_must_match": "Hasła muszą być takie same",
+    "phone": "Podaj poprawny numer telefonu",
     "required": "To pole jest wymagane"
   }
 }
