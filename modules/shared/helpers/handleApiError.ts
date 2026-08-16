@@ -58,12 +58,17 @@ async function handleApiError(error: unknown): Promise<Error> {
     const errorCode = errorDetail
         ? errorDetail.toUpperCase().replace(/ /g, "_")
         : ErrorMessage.UNKNOWN;
-    const name =
-        ErrorMessage[errorCode as keyof typeof ErrorMessage] ??
-        ErrorMessage.UNKNOWN;
-    const message = Errors[name] || Errors[ErrorMessage.UNKNOWN];
+    const knownName =
+        ErrorMessage[errorCode as keyof typeof ErrorMessage] ?? undefined;
+    const name = knownName ?? ErrorMessage.UNKNOWN;
+    const message = knownName
+        ? Errors[knownName]
+        : (errorDetail ?? Errors[ErrorMessage.UNKNOWN]);
 
-    throw { name, message };
+    const apiError = new Error(message);
+    apiError.name = name;
+
+    throw apiError;
 }
 
 export default handleApiError;

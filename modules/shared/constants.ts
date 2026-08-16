@@ -29,6 +29,11 @@ const Errors = {
 
 export default Errors;
 
+export enum Languages {
+    EN = "en",
+    PL = "pl",
+}
+
 export enum Permissions {
     AlL = "*",
     CREATE_ARTICLE = "CREATE_ARTICLE",

@@ -1,4 +1,4 @@
-﻿import React, { useCallback } from "react";
+﻿import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,7 +24,7 @@ const ArticleScreen = () => {
     const { data: article, isLoading: isArticleLoading } = useQuery(
         getArticleByIdQueryOptions({ id: articleId }, {}),
     );
-    const { data: articles } = useQuery(
+    useQuery(
         articlesQueryOptions({
             q: "",
             page: 1,
@@ -58,19 +58,6 @@ const ArticleScreen = () => {
             });
         },
     });
-
-    const getRandomArticles = useCallback(() => {
-        const filtered = articles
-            ? articles.items.filter(
-                  (item) =>
-                      item.status === ArticleStatus.PUBLISHED &&
-                      item.id !== articleId,
-              )
-            : [];
-        return filtered.sort(() => Math.random() - 0.5).slice(0, 3);
-    }, [articles, articleId]);
-
-    const suggestedArticles = getRandomArticles();
 
     const hasAccessToStatuses =
         user?.user_role === Roles.REDACTOR ||

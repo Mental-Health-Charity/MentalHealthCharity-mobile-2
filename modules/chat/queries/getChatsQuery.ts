@@ -1,4 +1,4 @@
-﻿import { url } from "../../../api";
+import { url } from "../../../api";
 import getAuthHeaders from "../../auth/helpers/getAuthHeaders";
 import handleApiError from "../../shared/helpers/handleApiError";
 import { Pagination } from "../../shared/types";
@@ -16,12 +16,12 @@ const getChatsMutation = async (
         });
 
         if (!res.ok) {
-            throw handleApiError(res);
+            throw await handleApiError(res);
         }
 
         return await res.json();
     } catch (error) {
-        throw handleApiError(error);
+        throw await handleApiError(error);
     }
 };
 

@@ -12,7 +12,7 @@ const closeChatMutation = async (options: ReadChatOptions): Promise<void> => {
     });
 
     if (!response.ok) {
-        throw handleApiError(response);
+        throw await handleApiError(response);
     }
 };
 

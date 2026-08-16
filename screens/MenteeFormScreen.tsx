@@ -26,6 +26,19 @@ const MenteeFormScreen = () => {
             });
             router.replace("/(app)/(tabs)/chats" as Href);
         },
+        onError: (error: unknown) => {
+            const message =
+                error && typeof error === "object" && "message" in error
+                    ? String(error.message)
+                    : t("errors.unknown");
+
+            showToast({
+                type: "error",
+                title: t("errors.fail"),
+                description: message,
+                duration: 4000,
+            });
+        },
     });
 
     const handleSubmit = (values: MenteeFormValues) => {
@@ -47,12 +60,13 @@ const MenteeFormScreen = () => {
                 description: values.description,
                 contact_preference: values.contact_preference,
                 email: values.email,
-                phone: values.phone,
                 source: values.source,
+                tos: values.tos,
                 contacts: values.contacts.map((value) => ({
                     name: value,
                     value,
                 })),
+                ...(values.phone ? { phone: values.phone } : {}),
             },
             form_type: formTypes.MENTEE,
         });

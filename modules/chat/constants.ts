@@ -1,5 +1,5 @@
 ﻿import { ReadyState } from "react-use-websocket";
-import i18n from "i18next";
+import { t } from "i18next";
 import { User } from "../auth/types";
 import { Roles } from "../users/constants";
 
@@ -14,11 +14,11 @@ export const UnknownUser: User = {
 };
 
 export const translatedConnectionStatus: Record<ReadyState, string> = {
-    [ReadyState.CLOSED]: i18n.t("chat.connection_closed"),
-    [ReadyState.CLOSING]: i18n.t("chat.connection_closing"),
-    [ReadyState.CONNECTING]: i18n.t("chat.connection_connecting"),
-    [ReadyState.OPEN]: i18n.t("chat.connection_open"),
-    [ReadyState.UNINSTANTIATED]: i18n.t("chat.connection_uninstantiated"),
+    [ReadyState.CLOSED]: t("chat.connection_closed"),
+    [ReadyState.CLOSING]: t("chat.connection_closing"),
+    [ReadyState.CONNECTING]: t("chat.connection_connecting"),
+    [ReadyState.OPEN]: t("chat.connection_open"),
+    [ReadyState.UNINSTANTIATED]: t("chat.connection_uninstantiated"),
 };
 
 export enum ChatSortByOptions {

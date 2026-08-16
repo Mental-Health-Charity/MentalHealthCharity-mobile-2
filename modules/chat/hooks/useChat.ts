@@ -145,7 +145,10 @@ const fetchAllChatHistory = async (chatId: number | string) => {
     return sortMessagesOldestFirst(allMessages);
 };
 
-export const useChat = (chatId: string) => {
+export const useChat = (
+    chatId: string,
+    options?: { onSendError?: (error: unknown) => void },
+) => {
     const { user } = useUser();
     const queryClient = useQueryClient();
     const [messageText, setMessageText] = useState("");
@@ -153,6 +156,7 @@ export const useChat = (chatId: string) => {
     const [socketUrl, setSocketUrl] = useState<string>();
     const [connectionStatus, setConnectionStatus] =
         useState<SocketConnectionStatus>("idle");
+    const { onSendError } = options ?? {};
     const chatQuery = useQuery({
         ...getChatById({ id: chatId }),
         enabled: Boolean(chatId),
@@ -298,7 +302,7 @@ export const useChat = (chatId: string) => {
                         normalizeMessage(sentMessage, chatId, chatQuery.data),
                     );
                 },
-                onError: () => {
+                onError: (error) => {
                     setMessages((currentMessages) =>
                         currentMessages.map((message) =>
                             message.id === temporaryId
@@ -311,6 +315,7 @@ export const useChat = (chatId: string) => {
                         ),
                     );
                     setMessageText(content);
+                    onSendError?.(error);
                 },
             },
         );

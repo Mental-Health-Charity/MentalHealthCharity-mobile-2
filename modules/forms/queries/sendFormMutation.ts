@@ -1,7 +1,36 @@
-﻿import { url } from "../../../api";
+import { url } from "../../../api";
 import getAuthHeaders from "../../auth/helpers/getAuthHeaders";
-import handleApiError from "../../shared/helpers/handleApiError";
+import Errors from "../../shared/constants";
+import { ErrorMessage } from "../../shared/types";
 import { Form, MenteeForm, VolunteerForm } from "../types";
+
+const extractServerMessage = (body: string): string | undefined => {
+    try {
+        const data = JSON.parse(body) as { detail?: unknown };
+
+        if (typeof data.detail === "string") {
+            return data.detail;
+        }
+
+        if (Array.isArray(data.detail)) {
+            const first = data.detail.find(
+                (item) =>
+                    item &&
+                    typeof item === "object" &&
+                    "msg" in item &&
+                    typeof item.msg === "string",
+            );
+
+            if (first && "msg" in first) {
+                return String(first.msg);
+            }
+        }
+    } catch {
+        return undefined;
+    }
+
+    return undefined;
+};
 
 const sendFormMutation = async (
     payload: Form<MenteeForm | VolunteerForm>,
@@ -16,7 +45,18 @@ const sendFormMutation = async (
         });
 
         if (!res.ok) {
-            throw handleApiError(res);
+            const rawBody = await res.text();
+
+            console.warn(
+                "Form submit failed:",
+                res.status,
+                res.statusText,
+                rawBody,
+            );
+
+            throw new Error(
+                extractServerMessage(rawBody) ?? Errors[ErrorMessage.UNKNOWN],
+            );
         }
 
         return await res.json();

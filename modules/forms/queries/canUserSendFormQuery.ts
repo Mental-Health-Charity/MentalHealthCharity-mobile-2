@@ -17,7 +17,7 @@ export const canUserSendFormQuery = (options?: CanUserSendFormOptions) =>
             });
 
             if (!response.ok) {
-                throw handleApiError(response);
+                throw await handleApiError(response);
             }
 
             return response.json();

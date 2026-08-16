@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from "react";
-import { Href, router } from "expo-router";
+import { useMemo } from "react";
+import { router } from "expo-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useUser } from "@/modules/auth/components/AuthContextProvider";
 import { canUserSendFormQuery } from "@/modules/forms/queries/canUserSendFormQuery";
@@ -53,15 +53,6 @@ export const useChatList = () => {
             await queryClient.invalidateQueries({ queryKey: ["chats"] });
         },
     });
-
-    useEffect(() => {
-        if (
-            canRedirectToMenteeForm &&
-            formAvailability.data?.can_send_form === true
-        ) {
-            router.replace("/(app)/mentee-form" as Href);
-        }
-    }, [canRedirectToMenteeForm, formAvailability.data?.can_send_form]);
 
     const chats = useMemo(() => {
         const items = chatsQuery.data?.items ?? [];

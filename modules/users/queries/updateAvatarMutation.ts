@@ -16,14 +16,17 @@ const updateAvatarMutation = async (
             type: payload.avatar.type,
         } as unknown as Blob);
 
-        const res = await fetch(url.users.updateUserAvatar({ id: payload.user_id }), {
-            method: "PUT",
-            headers,
-            body: formData,
-        });
+        const res = await fetch(
+            url.users.updateUserAvatar({ id: payload.user_id }),
+            {
+                method: "PUT",
+                headers,
+                body: formData,
+            },
+        );
 
         if (!res.ok) {
-            throw handleApiError(res);
+            throw await handleApiError(res);
         }
 
         return await res.json();

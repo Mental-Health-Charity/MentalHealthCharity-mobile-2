@@ -1,4 +1,4 @@
-﻿import { queryOptions, UseQueryOptions } from "@tanstack/react-query";
+import { queryOptions, UseQueryOptions } from "@tanstack/react-query";
 import { url } from "../../../api";
 import handleApiError from "../../shared/helpers/handleApiError";
 import { Pagination } from "../../shared/types";
@@ -19,7 +19,7 @@ export const readPublicArticlesQueryOptions = (
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw handleApiError(data);
+                    throw await handleApiError(data);
                 }
 
                 return data;

@@ -24,14 +24,6 @@ export interface RouteType {
     permission?: Permissions;
 }
 
-export interface Pagination<T> {
-    page: number;
-    size: number;
-    total: number;
-    pages: number;
-    items: T[];
-}
-
 export class ApiError extends Error {
     status: number;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

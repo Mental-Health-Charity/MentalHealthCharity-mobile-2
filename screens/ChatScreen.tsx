@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import Loader from "@/modules/shared/components/Loader";
+import { useToast } from "@/modules/shared/components/Toast";
 import { Message } from "@/modules/chat/types";
 import { useChat } from "@/modules/chat/hooks/useChat";
 
@@ -35,6 +36,19 @@ const ChatScreen = () => {
     const listRef = useRef<FlatList<Message>>(null);
     const params = useLocalSearchParams<{ id?: string }>();
     const chatId = params.id ?? "";
+    const { showToast } = useToast();
+    const getSendErrorMessage = (error: unknown) => {
+        if (
+            error &&
+            typeof error === "object" &&
+            "message" in error &&
+            typeof error.message === "string"
+        ) {
+            return error.message;
+        }
+
+        return "Nie udalo sie wyslac wiadomosci";
+    };
     const {
         chat,
         connectionStatus,
@@ -48,7 +62,16 @@ const ChatScreen = () => {
         participantNames,
         setMessageText,
         user,
-    } = useChat(chatId);
+    } = useChat(chatId, {
+        onSendError: (error) => {
+            showToast({
+                type: "error",
+                title: "Blad wysylania",
+                description: getSendErrorMessage(error),
+                duration: 4000,
+            });
+        },
+    });
 
     useEffect(() => {
         if (messages.length === 0) {

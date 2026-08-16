@@ -1,4 +1,4 @@
-﻿import {
+import {
     useMutation,
     UseMutationResult,
     useQuery,
@@ -79,9 +79,6 @@ export const UserContextProvider: React.FC<Props> = ({ children }) => {
             ]);
 
             setIsAuthenticated(true);
-        },
-        onError: (error: Error) => {
-            throw handleApiError(error);
         },
     });
 

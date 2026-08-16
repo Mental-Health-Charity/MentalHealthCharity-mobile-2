@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+﻿import React from "react";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 import RegisterForm from "@/modules/auth/components/RegisterForm";
@@ -9,7 +9,6 @@ import { useUser } from "@/modules/auth/components/AuthContextProvider";
 
 const RegisterScreen: React.FC = () => {
     const { t } = useTranslation();
-    const [loading, setLoading] = useState(false);
     const { register } = useUser();
     const { showToast } = useToast();
 
@@ -20,17 +19,22 @@ const RegisterScreen: React.FC = () => {
                 showToast({
                     type: "success",
                     title: t("common.success"),
-                    description: t("common.register_screen.register_success"),
+                    description:
+                        t("common.register_screen.register_success") +
+                        " " +
+                        t("common.register_screen.register_activation_note"),
                     duration: 400,
                 });
-                setLoading(false);
             },
-            onError: () => {
-                setLoading(false);
+            onError: (error: unknown) => {
+                const message =
+                    error && typeof error === "object" && "message" in error
+                        ? String(error.message)
+                        : t("errors.unknown");
                 showToast({
                     type: "error",
                     title: t("errors.fail"),
-                    description: t("errors.unknown"),
+                    description: message,
                     duration: 4000,
                 });
             },

@@ -26,11 +26,6 @@ export enum formSorting {
     OLDEST = "oldest",
 }
 
-export interface FormOption {
-    name: string;
-    value: string;
-}
-
 export interface ReadAllFormOptions {
     form_status: formStatus;
     form_type: formTypes;
@@ -38,6 +33,11 @@ export interface ReadAllFormOptions {
     size: number;
     // Sorting options: "min_stage" (ascending order by current_step), "max_stage" (descending order by current_step), "newest" (descending order by creation_date), "oldest" (ascending order by creation_date)
     sort?: "min_stage" | "max_stage" | "newest" | "oldest";
+}
+
+export interface FormOption {
+    name: string;
+    value: string;
 }
 
 export interface VolunteerFormValues {
@@ -48,7 +48,6 @@ export interface VolunteerFormValues {
     description: string;
     interview_meeting_dates: string[];
     source: string;
-    reason: string;
     contacts: string[];
     did_help: string;
     themes: string[];
@@ -60,7 +59,7 @@ export interface VolunteerForm {
     tos: boolean;
     education: string;
     description: string;
-    reason: string;
+    interview_meeting_dates: string[];
     source: string;
     did_help: string;
     contacts: FormOption[];
@@ -87,6 +86,7 @@ export interface MenteeForm {
     contact_preference: "scheduled" | "asynchronous";
     phone?: string;
     email: string;
+    tos: boolean;
     source: string;
 }
 

@@ -46,6 +46,7 @@
       "password": "Hasło",
       "policy": "Zapoznałem się z regulaminem",
       "register": "Zarejestruj się",
+      "register_activation_note": "Sprawdź swój adres e-mail, aby aktywować konto.",
       "register_success": "Rejestracja przebiegła pomyślnie",
       "username": "Nazwa użytkownika"
     },
@@ -100,7 +101,14 @@
       "missing_preference_description": "Wybierz preferowaną formę kontaktu.",
       "missing_preference_title": "Uzupełnij formularz",
       "name_label": "Imię i nazwisko",
+      "preference": {
+        "asynchronous": "Asynchronicznie (wiadomości)",
+        "scheduled": "W ustalonych terminach"
+      },
       "preference_label": "Jak chcesz rozmawiać?",
+      "referral_source": {
+        "friend": "Znajomy"
+      },
       "referral_source_label": "Skąd o nas wiesz?",
       "sending": "Wysyłanie...",
       "step_indicator": "Krok {{current}} z {{total}}",
@@ -109,7 +117,71 @@
       "title": "Formularz wsparcia"
     },
     "next": "Dalej",
-    "submit": "Wyślij"
+    "referral_source_options": {
+      "friend": "Znajomy",
+      "google": "Google",
+      "social_media": "Media społecznościowe"
+    },
+    "submit": "Wyślij",
+    "volunteer_form": {
+      "add_date": "Dodaj",
+      "age_label": "Ile masz lat?",
+      "back": "Wstecz",
+      "consent_label": "Akceptuję regulamin i zgodę na kontakt.",
+      "contact": {
+        "email": "E-mail",
+        "phone": "Telefon"
+      },
+      "contact_label": "Preferowany kontakt",
+      "description_label": "Opisz swoje doświadczenie",
+      "description_placeholder": "Opisz, w jaki sposób udzielałeś/aś pomocy...",
+      "duplicate_date": "Ta data została już dodana",
+      "education_label": "Twój poziom wykształcenia",
+      "education_options": {
+        "bachelor": "Licencjat",
+        "elementary": "Podstawowe",
+        "high_school": "Średnie",
+        "master": "Magister",
+        "phd": "Doktor"
+      },
+      "experience_label": "Czy masz doświadczenie w pomocy psychologicznej?",
+      "experience_options": {
+        "no": "Nie",
+        "yes_personal": "Tak, niezawodowe",
+        "yes_professional": "Tak, zawodowe"
+      },
+      "interview_meeting_dates_label": "Podaj dogodne dla Ciebie terminy rozmowy kwalifikacyjnej",
+      "interview_meeting_dates_placeholder": "RRRR-MM-DD",
+      "invalid_date": "Podaj datę w formacie RRRR-MM-DD",
+      "phone_label": "Numer telefonu",
+      "reason_label": "Dlaczego chcesz do nas dołączyć?",
+      "reason_placeholder": "Opisz swoje motywacje, oczekiwania i cele...",
+      "referral_source_label": "Skąd o nas wiesz?",
+      "remove_date": "Usuń",
+      "sending": "Wysyłanie...",
+      "step_indicator": "Krok {{current}} z {{total}}",
+      "submit_success_description": "Powiadomimy Cię o dalszych krokach. Wróć do czatów, gdy pojawi się podopieczny.",
+      "submit_success_title": "Formularz został wysłany",
+      "themes_label": "Czy są tematy, z którymi nie chcesz się mierzyć?",
+      "themes_options": {
+        "alcoholism": "Alkoholizm",
+        "anxiety": "Lęk",
+        "burnout": "Wypalenie zawodowe",
+        "depression": "Depresja",
+        "domestic_violence": "Przemoc domowa",
+        "drug_addiction": "Uzależnienie od narkotyków",
+        "eating_disorders": "Zaburzenia odżywiania",
+        "grief_loss": "Żałoba i strata",
+        "homelessness": "Bezdomność",
+        "loneliness": "Samotność",
+        "no": "Nie mam przeciwwskazań",
+        "self_harm": "Samookaleczenia",
+        "sexual_assault": "Przemoc seksualna",
+        "suicidal_thoughts": "Myśli samobójcze",
+        "trauma": "Trauma"
+      },
+      "title": "Formularz wolontariusza"
+    }
   },
   "form_sorting": {
     "max_stage": "Najwyższy etap",
@@ -125,7 +197,17 @@
   "navigation": {
     "chats": "Czaty",
     "home": "Główna",
-    "options": "Opcje"
+    "options": "Opcje",
+    "settings": "Ustawienia"
+  },
+  "pick_role": {
+    "loading": "Sprawdzamy dostępność formularzy...",
+    "mentee_subtitle": "Otrzymaj darmowe wsparcie wolontariusza",
+    "mentee_title": "Podopieczny",
+    "subtitle": "Jak chcesz skorzystać z naszej pomocy?",
+    "title": "Wybierz swoją rolę",
+    "volunteer_subtitle": "Dołącz do grona wolontariuszy i pomagaj innym",
+    "volunteer_title": "Wolontariusz"
   },
   "session": {
     "logging_in": "Trwa logowanie...",

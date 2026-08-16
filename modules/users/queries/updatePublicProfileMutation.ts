@@ -9,17 +9,20 @@ const updatePublicProfileMutation = async (
     const headers = getAuthHeaders();
 
     try {
-        const res = await fetch(url.users.updatePublicProfile({ id: payload.user_id }), {
-            method: "PUT",
-            headers,
-            body: JSON.stringify({
-                avatar_url: payload.avatar_url,
-                description: payload.description,
-            }),
-        });
+        const res = await fetch(
+            url.users.updatePublicProfile({ id: payload.user_id }),
+            {
+                method: "PUT",
+                headers,
+                body: JSON.stringify({
+                    avatar_url: payload.avatar_url,
+                    description: payload.description,
+                }),
+            },
+        );
 
         if (!res.ok) {
-            throw handleApiError(res);
+            throw await handleApiError(res);
         }
 
         return await res.json();

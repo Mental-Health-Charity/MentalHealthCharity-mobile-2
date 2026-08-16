@@ -20,16 +20,12 @@ export const registerMutation = async (
             payload.next = data.next;
         }
 
-        const registerResponse = await fetch(url.users.createUser, {
+        const registerResponse = await fetch(url.users.createUserOpen, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                email: data.email,
-                password: data.password,
-                full_name: data.full_name,
-            }),
+            body: JSON.stringify(payload),
         });
         const newUser = await registerResponse.json();
 
@@ -39,7 +35,7 @@ export const registerMutation = async (
 
         return newUser;
     } catch (err) {
-        console.error("Error logging in:", err);
+        console.error("Error registering:", err);
         throw err;
     }
 };

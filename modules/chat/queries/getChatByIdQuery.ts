@@ -1,4 +1,4 @@
-﻿import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 import { url } from "../../../api";
 import { Chat, ReadChatOptions } from "../types";
 import getAuthHeaders from "../../auth/helpers/getAuthHeaders";
@@ -17,7 +17,7 @@ export const getChatById = (options: ReadChatOptions) =>
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw handleApiError(data);
+                    throw await handleApiError(data);
                 }
 
                 return data;
