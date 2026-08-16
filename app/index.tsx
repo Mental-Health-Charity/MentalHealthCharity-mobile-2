@@ -1,20 +1,26 @@
-﻿import { Redirect } from "expo-router";
-import { useSession } from "@/modules/auth/context/ctx";
+import { Redirect } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
+import { useUser } from "@/modules/auth/components/AuthContextProvider";
 
 export default function Index() {
-    const { token, isLoading } = useSession();
+    const { user, isLoading } = useUser();
 
     if (isLoading) {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
                 <ActivityIndicator size="large" />
             </View>
         );
     }
 
-    if (token) {
-        return <Redirect href="/(app)" />;
+    if (user) {
+        return <Redirect href="/" />;
     }
 
     return <Redirect href="/welcome-screen" />;
